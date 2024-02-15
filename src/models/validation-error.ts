@@ -11,3 +11,10 @@ export class ValidationError<T> extends AppError {
   }
 }
 
+/**
+ * Checks if value is validation error.
+ * @param value Value.
+ */
+export function isValidationError<T>(value: unknown): value is ValidationError<T> {
+  return value instanceof ValidationError;
+}
