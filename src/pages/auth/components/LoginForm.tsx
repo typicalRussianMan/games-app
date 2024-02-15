@@ -1,6 +1,6 @@
 import { FC, memo, useCallback, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
-import { Button, Snackbar, TextField, Typography } from "@mui/material";
+import { Button, LinearProgress, Snackbar, TextField, Typography } from "@mui/material";
 import { LoginFormData, loginSchema } from "./LoginForm.schema";
 
 import './LoginForm.css';
@@ -9,6 +9,7 @@ import { authApi } from "../../../api";
 import { isValidationError } from "../../../models/validation-error";
 import { Login } from "../../../models/login";
 import { AppError } from "../../../models/app-error";
+import { tokenService } from "../../../services/token.service";
 
 const LoginFormComponent: FC = () => {
   const {
@@ -21,14 +22,19 @@ const LoginFormComponent: FC = () => {
   });
 
   const [formError, setFormError] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState(false);
 
   const clearError = useCallback(() => {
     setFormError(null);
   }, [setFormError])
 
   const onSubmit: SubmitHandler<LoginFormData> = async(data) => {
+    setIsLoading(true);
     try {
       const response = await authApi.login(data);
+      tokenService.setToken(response);
+
+      
     } catch (err) {
       if (isValidationError<Login>(err)) {
         setError('email', { message: err.details.email });
@@ -36,6 +42,8 @@ const LoginFormComponent: FC = () => {
       } else {
         setFormError((err as AppError).message)
       }
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -58,9 +66,15 @@ const LoginFormComponent: FC = () => {
         helperText={errors.password?.message}
         {...register('password')}
       />
-      <Button variant="contained" type="submit">
+      <Button
+        disabled={isLoading}
+        variant="contained"
+        type="submit">
         <Typography variant="body1" component="span">Login</Typography>
       </Button>
+      {isLoading &&
+        <LinearProgress />
+      }
       <Snackbar
         open={formError !== null}
         message={formError}
