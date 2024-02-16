@@ -6,9 +6,6 @@ export class Registration {
   /** Last name. */
   public readonly lastName: string;
 
-  /** Nick name. */
-  public readonly nickName: string;
-
   /** Email. */
   public readonly email: string;
 
@@ -19,7 +16,6 @@ export class Registration {
     this.email = data.email;
     this.firstName = data.firstName;
     this.lastName = data.lastName;
-    this.nickName = data.nickName;
     this.password = data.password;
   }
 }

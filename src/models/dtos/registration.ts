@@ -6,9 +6,6 @@ export interface RegistrationDto {
   /** Last name. */
   readonly lastName: string;
 
-  /** Nick name. */
-  readonly nickName: string;
-
   /** Email. */
   readonly email: string;
 

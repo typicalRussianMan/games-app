@@ -9,7 +9,6 @@ class RegistrationMapper implements IMapperToDto<RegistrationDto, Registration> 
       email: data.email,
       firstName: data.firstName,
       lastName: data.lastName,
-      nickName: data.nickName,
       password: data.password,
     }
   }

@@ -56,7 +56,7 @@ const LoginFormComponent: FC = () => {
   }
 
   return (
-    <form className="login-form" onSubmit={handleSubmit(onSubmit)}>
+    <form className="form" onSubmit={handleSubmit(onSubmit)}>
       <Typography variant="h4" component="h1">Authorization</Typography>
       <TextField
         label="Email"
