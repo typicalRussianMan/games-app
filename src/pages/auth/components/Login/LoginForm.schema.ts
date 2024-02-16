@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { Login } from '../../../models/login';
+import { Login } from '../../../../models/login';
 
 export type LoginFormData = Login;
 

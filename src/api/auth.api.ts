@@ -10,6 +10,8 @@ import { validationErrorMapper } from "../models/mappers/validation-error.mapper
 import { User } from "../models/user";
 import { UserDto } from "../models/dtos/user.dto";
 import { userMapper } from "../models/mappers/user.mapper";
+import { Registration } from "../models/registration";
+import { registrationMapper } from "../models/mappers/registration.mapper";
 
 /** Auth API. */
 export class AuthApi {
@@ -35,6 +37,26 @@ export class AuthApi {
         throw appErrorMapper.fromDto(err.response?.data);
       }
       throw err
+    }
+  }
+
+  /**
+   * Registers a new user.
+   * @param data Registration data.
+   */
+  public async register(data: Registration): Promise<Token> {
+    try {
+      const token = await this.http.post<TokenDto>('/auth/register', registrationMapper.toDto(data));
+      return tokenMapper.fromDto(token.data);
+    } catch (err: unknown) {
+      if (isAxiosError(err)) {
+        if (isValidationErrorDto(err.response?.data)) {
+          throw validationErrorMapper.fromDto(err.response.data);
+        }
+
+        throw appErrorMapper.fromDto(err.response?.data);
+      }
+      throw err;
     }
   }
 
