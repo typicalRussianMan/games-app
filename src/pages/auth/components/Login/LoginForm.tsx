@@ -2,15 +2,15 @@ import { FC, memo, useCallback, useState } from "react";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { Button, LinearProgress, Snackbar, TextField, Typography } from "@mui/material";
 import { LoginFormData, loginSchema } from "./LoginForm.schema";
-
-import './LoginForm.css';
 import { yupResolver } from "@hookform/resolvers/yup";
-import { authApi } from "../../../api";
-import { isValidationError } from "../../../models/validation-error";
-import { Login } from "../../../models/login";
-import { AppError } from "../../../models/app-error";
-import { tokenService } from "../../../services/token.service";
-import { useUser } from "../../../hooks/useUser";
+import { authApi } from "../../../../api";
+import { isValidationError } from "../../../../models/validation-error";
+import { Login } from "../../../../models/login";
+import { AppError } from "../../../../models/app-error";
+import { tokenService } from "../../../../services/token.service";
+import { useUser } from "../../../../hooks/useUser";
+
+import '../style.css';
 
 const LoginFormComponent: FC = () => {
   const {
