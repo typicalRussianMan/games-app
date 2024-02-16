@@ -1,11 +1,16 @@
-import { FC, useCallback, useEffect, useState } from "react";
+import { FC, memo, useCallback, useEffect, useState } from "react";
 import { RegistrationFormData, registrationSchema } from "./RegistrationForm.schema";
 import { SubmitHandler, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useUser } from "../../../../hooks/useUser";
-import { TextField, Typography } from "@mui/material";
+import { Button, LinearProgress, Snackbar, TextField, Typography } from "@mui/material";
 
 import '../style.css';
+import { authApi } from "../../../../api";
+import { tokenService } from "../../../../services/token.service";
+import { Registration } from "../../../../models/registration";
+import { isValidationError } from "../../../../models/validation-error";
+import { AppError } from "../../../../models/app-error";
 
 const RegistrationFormComponent: FC = () => {
   const {
@@ -13,7 +18,7 @@ const RegistrationFormComponent: FC = () => {
     handleSubmit,
     formState: { errors },
     setError,
-    getValues,
+    clearErrors,
     watch
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(registrationSchema),
@@ -23,8 +28,10 @@ const RegistrationFormComponent: FC = () => {
   useEffect(() => {
     if (formValues.password !== formValues.repeatPassword) {
       setError('repeatPassword', { message: 'Passwords doesn\'t match' })
+    } else {
+      clearErrors('repeatPassword');
     }
-  }, [formValues.repeatPassword]);
+  }, [formValues.repeatPassword, formValues.password]);
 
   const [formError, setFormError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
@@ -34,8 +41,33 @@ const RegistrationFormComponent: FC = () => {
     setFormError(null);
   }, [setFormError]);
 
-  const omSubmit: SubmitHandler<RegistrationFormData> = (data) => {
-    console.log(data);
+  const omSubmit: SubmitHandler<RegistrationFormData> = async(data) => {
+    clearErrors('root');
+    try {
+      const response = await authApi.register(data);
+      tokenService.setToken(response);
+
+      const user = await authApi.getCurrentUser();
+
+      if (user === null) {
+        return;
+      }
+
+      dispatch({ type: 'user', user });
+    } catch (err) {
+      if (isValidationError<Registration>(err)) {
+        for (const key in err.details) {
+          setError(
+            key as keyof Registration,
+            { message: err.details[key as keyof Registration] }
+          );
+        }
+      } else {
+        setFormError((err as AppError).message)
+      }
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
@@ -81,6 +113,24 @@ const RegistrationFormComponent: FC = () => {
         helperText={errors.repeatPassword?.message}
         {...register('repeatPassword')}
       />
+      <Button
+        disabled={isLoading}
+        variant="contained"
+        type="submit">
+        <Typography variant="body1" component="span">Register</Typography>
+      </Button>
+      {isLoading &&
+        <LinearProgress />
+      }
+      <Snackbar
+        open={formError !== null}
+        message={formError}
+        onClose={clearError}
+        autoHideDuration={5000}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      />
     </form>
   )
 }
+
+export const RegistrationForm = memo(RegistrationFormComponent);
