@@ -11,6 +11,7 @@ import { tokenService } from "../../../../services/token.service";
 import { useUser } from "../../../../hooks/useUser";
 
 import '../style.css';
+import { Link } from "react-router-dom";
 
 const LoginFormComponent: FC = () => {
   const {
@@ -90,6 +91,9 @@ const LoginFormComponent: FC = () => {
         autoHideDuration={5000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
+      <Link to="../register">
+        <Typography variant="body1" component='span'>Create account</Typography>
+      </Link>
     </form>
   )
 };

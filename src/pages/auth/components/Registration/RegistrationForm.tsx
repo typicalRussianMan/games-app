@@ -11,6 +11,7 @@ import { tokenService } from "../../../../services/token.service";
 import { Registration } from "../../../../models/registration";
 import { isValidationError } from "../../../../models/validation-error";
 import { AppError } from "../../../../models/app-error";
+import { Link } from "react-router-dom";
 
 const RegistrationFormComponent: FC = () => {
   const {
@@ -129,6 +130,9 @@ const RegistrationFormComponent: FC = () => {
         autoHideDuration={5000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
+      <Link to="../login">
+        <Typography variant="body1" component='span'>Already have an account?</Typography>
+      </Link>
     </form>
   )
 }
