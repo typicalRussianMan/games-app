@@ -17,7 +17,7 @@ class TokenService {
    */
   public setToken(newToken: Token) {
     this.tokenValue = newToken;
-    storageService.set(TOKEN_KEY, newToken.token);
+    storageService.set(TOKEN_KEY, newToken);
   }
 
   public deleteToken(): void {

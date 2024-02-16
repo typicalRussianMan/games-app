@@ -39,12 +39,15 @@ export class AuthApi {
   }
 
   /** Gets current user. */
-  public async getCurrentUser(): Promise<User | null> {
+  public async getCurrentUser(): Promise<User> {
     try {
       const user = await this.http.get<UserDto>('/user');
       return userMapper.fromDto(user.data);
     } catch (err) {
-      return null;
+      if (isAxiosError(err)) {
+        throw appErrorMapper.fromDto(err.response?.data);
+      }
+      throw err;
     }
   }
 }

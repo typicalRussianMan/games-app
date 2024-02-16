@@ -10,6 +10,7 @@ import { isValidationError } from "../../../models/validation-error";
 import { Login } from "../../../models/login";
 import { AppError } from "../../../models/app-error";
 import { tokenService } from "../../../services/token.service";
+import { useUser } from "../../../hooks/useUser";
 
 const LoginFormComponent: FC = () => {
   const {
@@ -23,6 +24,7 @@ const LoginFormComponent: FC = () => {
 
   const [formError, setFormError] = useState<string | null>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { dispatch } = useUser();
 
   const clearError = useCallback(() => {
     setFormError(null);
@@ -40,7 +42,7 @@ const LoginFormComponent: FC = () => {
         return;
       }
 
-      console.log(user);
+      dispatch({ type: 'user', user });
     } catch (err) {
       if (isValidationError<Login>(err)) {
         setError('email', { message: err.details.email });
