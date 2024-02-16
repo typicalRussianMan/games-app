@@ -1,22 +1,18 @@
 import { createBrowserRouter } from "react-router-dom";
-import { App } from "./App";
-import { HomePage } from "./pages/home/HomePage";
-import { TestPage } from "./pages/test/TestPage";
+import { AUTH_ROUTES } from "./pages/auth/auth.routing";
+import { MainPage } from "./pages/main/MainPage";
+import { AuthorizedGuard } from "./guards/AuthorizedGuard";
 
 /** Router. */
 export const router = createBrowserRouter([
+  AUTH_ROUTES,
   {
-    path: '/',
-    element: <App />,
+    element: <AuthorizedGuard />,
     children: [
       {
-        path: '/home',
-        element: <HomePage />
+        path: '/',
+        element: <MainPage />,
       },
-      {
-        path: '/test',
-        element: <TestPage />
-      }
-    ]
+    ],
   },
 ]);
