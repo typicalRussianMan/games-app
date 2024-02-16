@@ -34,7 +34,13 @@ const LoginFormComponent: FC = () => {
       const response = await authApi.login(data);
       tokenService.setToken(response);
 
-      
+      const user = await authApi.getCurrentUser();
+
+      if (user === null) {
+        return;
+      }
+
+      console.log(user);
     } catch (err) {
       if (isValidationError<Login>(err)) {
         setError('email', { message: err.details.email });

@@ -7,6 +7,9 @@ import { isValidationErrorDto } from "../models/dtos/validation-error.dto";
 import { appErrorMapper } from "../models/mappers/app-error.mapper";
 import { tokenMapper } from "../models/mappers/token.mapper";
 import { validationErrorMapper } from "../models/mappers/validation-error.mapper";
+import { User } from "../models/user";
+import { UserDto } from "../models/dtos/user.dto";
+import { userMapper } from "../models/mappers/user.mapper";
 
 /** Auth API. */
 export class AuthApi {
@@ -32,6 +35,16 @@ export class AuthApi {
         throw appErrorMapper.fromDto(err.response?.data);
       }
       throw err
+    }
+  }
+
+  /** Gets current user. */
+  public async getCurrentUser(): Promise<User | null> {
+    try {
+      const user = await this.http.get<UserDto>('/user');
+      return userMapper.fromDto(user.data);
+    } catch (err) {
+      return null;
     }
   }
 }
