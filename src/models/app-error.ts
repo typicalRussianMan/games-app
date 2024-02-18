@@ -1,4 +1,4 @@
-import { ResponseCode } from "./response-code";
+import { ResponseCode } from './response-code';
 
 type AppErrorConstructor = Pick<AppError, 'code' | 'message'>;
 

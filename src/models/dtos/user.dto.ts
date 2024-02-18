@@ -1,4 +1,5 @@
-export interface UserDto {
+/** User DTO. */
+export type UserDto = {
 
   /** ID. */
   readonly id: number;
@@ -14,4 +15,4 @@ export interface UserDto {
 
   /** Email. */
   readonly email: string;
-}
+};

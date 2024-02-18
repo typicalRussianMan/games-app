@@ -1,6 +1,8 @@
-import { InternalAxiosRequestConfig } from "axios";
-import { API_BASE_URL } from ".";
-import { tokenService } from "../services/token.service";
+import { InternalAxiosRequestConfig } from 'axios';
+
+import { tokenService } from '../services/token.service';
+
+import { API_BASE_URL } from '.';
 
 /**
  * Checks if a request should be intercepted.

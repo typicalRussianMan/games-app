@@ -1,10 +1,12 @@
-import axios from "axios";
-import { AuthApi } from "./auth.api";
-import { addAuthorizationTokenBeforeRequest } from "./interceptors";
+import axios from 'axios';
 
+import { AuthApi } from './auth.api';
+import { addAuthorizationTokenBeforeRequest } from './interceptors';
+
+/** API base URL. */
 export const API_BASE_URL = 'https://games-app-pdmt.onrender.com/api';
 
-/** Axios instance */
+/** Axios instance. */
 export const http = axios.create({
   baseURL: API_BASE_URL,
 });

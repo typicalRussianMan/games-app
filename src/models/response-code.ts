@@ -27,7 +27,7 @@ const TO_READABLE: Record<ResponseCode, string> = {
   [ResponseCode.NotFound]: 'Resource not found',
   [ResponseCode.OK]: 'Ok',
   [ResponseCode.Unauthorized]: 'Unauthorized',
-}
+};
 
 /**
  * Converts response code to readable value.

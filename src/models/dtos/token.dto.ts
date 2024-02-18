@@ -1,5 +1,6 @@
-export interface TokenDto {
+/** Token DTO. */
+export type TokenDto = {
 
   /** Token. */
   token: string;
-}
+};

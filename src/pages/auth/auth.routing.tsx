@@ -1,9 +1,12 @@
-import { RouteObject } from "react-router-dom";
-import { AuthPage } from "./AuthPage";
-import { LoginForm } from "./components/Login";
-import { UnauthorizedGuard } from "../../guards/UnauthorizedGuard";
-import { RegistrationForm } from "./components/Registration";
+import { RouteObject } from 'react-router-dom';
 
+import { UnauthorizedGuard } from '../../guards/UnauthorizedGuard';
+
+import { AuthPage } from './AuthPage';
+import { LoginForm } from './components/Login';
+import { RegistrationForm } from './components/Registration';
+
+/** Auth routes. */
 export const AUTH_ROUTES: RouteObject = {
   element: <UnauthorizedGuard />,
   children: [
@@ -17,9 +20,9 @@ export const AUTH_ROUTES: RouteObject = {
         },
         {
           path: 'register',
-          element: <RegistrationForm />
-        }
+          element: <RegistrationForm />,
+        },
       ],
-    }
-  ]
-}
+    },
+  ],
+};
