@@ -1,8 +1,9 @@
-import { AppError } from "./app-error";
+import { AppError } from './app-error';
 
 /** Validation error. */
 export class ValidationError<T> extends AppError {
 
+  /** Error details. */
   public readonly details: Readonly<Partial<Record<keyof T, string>>>;
 
   public constructor(data: ValidationError<T>) {

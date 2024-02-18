@@ -1,54 +1,67 @@
-import { FC, PropsWithChildren, createContext, useContext, useReducer } from "react";
-import { User } from "../models/user";
+import { FC, PropsWithChildren, createContext, memo, useContext, useReducer } from 'react';
 
-interface IUserState {
+import { User } from '../models/user';
 
+type UserState = {
+
+  /** User. */
   readonly user: User | null;
 
+  /** Whether is user loading. */
   readonly isLoading: boolean;
 
+  /** Error message. */
   readonly error: string | null;
-}
+};
 
-interface IUserActionLoading {
+type UserActionLoading = {
 
+  /** Action type. */
   readonly type: 'loading';
-}
+};
 
-interface IUserActionUser {
+type UserActionUser = {
 
+  /** Action type. */
   readonly type: 'user';
 
+  /** User. */
   readonly user: User;
-}
+};
 
-interface IUserActionError {
+type UserActionError = {
 
+  /** Action type. */
   readonly type: 'error';
 
+  /** Error message. */
   readonly error: string;
-}
+};
 
-type UserAction = IUserActionError | IUserActionLoading | IUserActionUser;
+type UserAction = UserActionError | UserActionLoading | UserActionUser;
 
-interface IUserContext {
+type UserContext = {
 
-  readonly state: IUserState;
+  /** State. */
+  readonly state: UserState;
 
+  /** Dispatch function. */
   dispatch(action: UserAction): void;
-}
+};
 
 /** User context. */
-const UserContext = createContext<IUserContext>({
+const UserContext = createContext<UserContext>({
   state: {
     error: null,
     isLoading: false,
     user: null,
   },
-  dispatch: () => {}
+  dispatch() {
+    return undefined;
+  },
 });
 
-const userReducer = (_state: IUserState, action: UserAction): IUserState => {
+const userReducer = (_state: UserState, action: UserAction): UserState => {
   const { type } = action;
 
   switch (type) {
@@ -58,11 +71,13 @@ const userReducer = (_state: IUserState, action: UserAction): IUserState => {
       return { error: null, isLoading: true, user: null };
     case 'user':
       return { error: null, isLoading: false, user: action.user };
+    default:
+      throw new Error(`Unknown action type: ${type}`);
   }
-}
+};
 
 /** Use user context. */
-export function useUser(): IUserContext {
+export function useUser(): UserContext {
   const context = useContext(UserContext);
 
   if (context === undefined) {
@@ -72,13 +87,12 @@ export function useUser(): IUserContext {
   return context;
 }
 
-/** User provider. */
-export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
+const UserProviderComponent: FC<PropsWithChildren> = ({ children }) => {
   const [state, dispatch] = useReducer(userReducer, {
     user: null,
     error: null,
     isLoading: false,
-  })
+  });
 
   return (
     <UserContext.Provider value={{
@@ -87,5 +101,8 @@ export const UserProvider: FC<PropsWithChildren> = ({ children }) => {
     }}>
       { children }
     </UserContext.Provider>
-  )
-}
+  );
+};
+
+/** User provider. */
+export const UserProvider = memo(UserProviderComponent);

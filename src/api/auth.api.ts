@@ -1,17 +1,18 @@
-import { Axios, isAxiosError } from "axios";
-import { TokenDto } from "../models/dtos/token.dto";
-import { Login } from "../models/login";
-import { loginMapper } from "../models/mappers/login.mapper";
-import { Token } from "../models/token";
-import { isValidationErrorDto } from "../models/dtos/validation-error.dto";
-import { appErrorMapper } from "../models/mappers/app-error.mapper";
-import { tokenMapper } from "../models/mappers/token.mapper";
-import { validationErrorMapper } from "../models/mappers/validation-error.mapper";
-import { User } from "../models/user";
-import { UserDto } from "../models/dtos/user.dto";
-import { userMapper } from "../models/mappers/user.mapper";
-import { Registration } from "../models/registration";
-import { registrationMapper } from "../models/mappers/registration.mapper";
+import { Axios, isAxiosError } from 'axios';
+
+import { Login } from '../models/login';
+import { Token } from '../models/token';
+import { TokenDto } from '../models/dtos/token.dto';
+import { loginMapper } from '../models/mappers/login.mapper';
+import { tokenMapper } from '../models/mappers/token.mapper';
+import { isValidationErrorDto } from '../models/dtos/validation-error.dto';
+import { validationErrorMapper } from '../models/mappers/validation-error.mapper';
+import { appErrorMapper } from '../models/mappers/app-error.mapper';
+import { Registration } from '../models/registration';
+import { registrationMapper } from '../models/mappers/registration.mapper';
+import { User } from '../models/user';
+import { UserDto } from '../models/dtos/user.dto';
+import { userMapper } from '../models/mappers/user.mapper';
 
 /** Auth API. */
 export class AuthApi {
@@ -36,7 +37,7 @@ export class AuthApi {
 
         throw appErrorMapper.fromDto(err.response?.data);
       }
-      throw err
+      throw err;
     }
   }
 

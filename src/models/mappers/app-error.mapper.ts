@@ -1,8 +1,10 @@
-import { AppError } from "../app-error";
-import { AppErrorDto } from "../dtos/app-error.dto";
-import { IMapperFromDto } from "./mapper";
-import { serverResponseCodeMapper } from "./server-response-code.mapper";
+import { AppError } from '../app-error';
+import { AppErrorDto } from '../dtos/app-error.dto';
 
+import { IMapperFromDto } from './mapper';
+import { serverResponseCodeMapper } from './server-response-code.mapper';
+
+/** App error mapper. */
 class AppErrorMapper implements IMapperFromDto<AppErrorDto, AppError> {
 
   /** @inheritdoc */
@@ -14,4 +16,5 @@ class AppErrorMapper implements IMapperFromDto<AppErrorDto, AppError> {
   }
 }
 
+/** App error mapper instance. */
 export const appErrorMapper = new AppErrorMapper();

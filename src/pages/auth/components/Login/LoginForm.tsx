@@ -1,17 +1,18 @@
-import { FC, memo, useCallback, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { Button, LinearProgress, Snackbar, TextField, Typography } from "@mui/material";
-import { LoginFormData, loginSchema } from "./LoginForm.schema";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { authApi } from "../../../../api";
-import { isValidationError } from "../../../../models/validation-error";
-import { Login } from "../../../../models/login";
-import { AppError } from "../../../../models/app-error";
-import { tokenService } from "../../../../services/token.service";
-import { useUser } from "../../../../hooks/useUser";
+import { FC, memo, useCallback, useState } from 'react';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { Link } from 'react-router-dom';
+import { Button, LinearProgress, Snackbar, TextField, Typography } from '@mui/material';
+import { yupResolver } from '@hookform/resolvers/yup';
 
+import { authApi } from '../../../../api';
+import { isValidationError } from '../../../../models/validation-error';
+import { Login } from '../../../../models/login';
+import { AppError } from '../../../../models/app-error';
+import { tokenService } from '../../../../services/token.service';
+import { useUser } from '../../../../hooks/useUser';
 import '../style.css';
-import { Link } from "react-router-dom";
+
+import { LoginFormData, loginSchema } from './LoginForm.schema';
 
 const LoginFormComponent: FC = () => {
   const {
@@ -29,9 +30,9 @@ const LoginFormComponent: FC = () => {
 
   const clearError = useCallback(() => {
     setFormError(null);
-  }, [setFormError])
+  }, [setFormError]);
 
-  const onSubmit: SubmitHandler<LoginFormData> = async(data) => {
+  const onSubmit: SubmitHandler<LoginFormData> = async data => {
     setIsLoading(true);
     try {
       const response = await authApi.login(data);
@@ -49,12 +50,12 @@ const LoginFormComponent: FC = () => {
         setError('email', { message: err.details.email });
         setError('password', { message: err.details.password });
       } else {
-        setFormError((err as AppError).message)
+        setFormError((err as AppError).message);
       }
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form className="form" onSubmit={handleSubmit(onSubmit)}>
@@ -95,7 +96,8 @@ const LoginFormComponent: FC = () => {
         <Typography variant="body1" component='span'>Create account</Typography>
       </Link>
     </form>
-  )
+  );
 };
 
+/** Login form. */
 export const LoginForm = memo(LoginFormComponent);

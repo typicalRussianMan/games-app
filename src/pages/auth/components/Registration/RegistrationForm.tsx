@@ -1,17 +1,19 @@
-import { FC, memo, useCallback, useEffect, useState } from "react";
-import { RegistrationFormData, registrationSchema } from "./RegistrationForm.schema";
-import { SubmitHandler, useForm } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import { useUser } from "../../../../hooks/useUser";
-import { Button, LinearProgress, Snackbar, TextField, Typography } from "@mui/material";
+import { FC, memo, useCallback, useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { yupResolver } from '@hookform/resolvers/yup';
+import { Button, LinearProgress, Snackbar, TextField, Typography } from '@mui/material';
+
+import { useUser } from '../../../../hooks/useUser';
+import { authApi } from '../../../../api';
+import { tokenService } from '../../../../services/token.service';
+import { Registration } from '../../../../models/registration';
+import { isValidationError } from '../../../../models/validation-error';
+import { AppError } from '../../../../models/app-error';
+
+import { RegistrationFormData, registrationSchema } from './RegistrationForm.schema';
 
 import '../style.css';
-import { authApi } from "../../../../api";
-import { tokenService } from "../../../../services/token.service";
-import { Registration } from "../../../../models/registration";
-import { isValidationError } from "../../../../models/validation-error";
-import { AppError } from "../../../../models/app-error";
-import { Link } from "react-router-dom";
 
 const RegistrationFormComponent: FC = () => {
   const {
@@ -20,7 +22,7 @@ const RegistrationFormComponent: FC = () => {
     formState: { errors },
     setError,
     clearErrors,
-    watch
+    watch,
   } = useForm<RegistrationFormData>({
     resolver: yupResolver(registrationSchema),
   });
@@ -28,7 +30,7 @@ const RegistrationFormComponent: FC = () => {
 
   useEffect(() => {
     if (formValues.password !== formValues.repeatPassword) {
-      setError('repeatPassword', { message: 'Passwords doesn\'t match' })
+      setError('repeatPassword', { message: 'Passwords doesn\'t match' });
     } else {
       clearErrors('repeatPassword');
     }
@@ -42,14 +44,12 @@ const RegistrationFormComponent: FC = () => {
     setFormError(null);
   }, [setFormError]);
 
-  const omSubmit: SubmitHandler<RegistrationFormData> = async(data) => {
+  const omSubmit: SubmitHandler<RegistrationFormData> = async data => {
     clearErrors('root');
     try {
       const response = await authApi.register(data);
       tokenService.setToken(response);
-
       const user = await authApi.getCurrentUser();
-
       if (user === null) {
         return;
       }
@@ -60,16 +60,16 @@ const RegistrationFormComponent: FC = () => {
         for (const key in err.details) {
           setError(
             key as keyof Registration,
-            { message: err.details[key as keyof Registration] }
+            { message: err.details[key as keyof Registration] },
           );
         }
       } else {
-        setFormError((err as AppError).message)
+        setFormError((err as AppError).message);
       }
     } finally {
       setIsLoading(false);
     }
-  }
+  };
 
   return (
     <form className="form" onSubmit={handleSubmit(omSubmit)}>
@@ -120,9 +120,7 @@ const RegistrationFormComponent: FC = () => {
         type="submit">
         <Typography variant="body1" component="span">Register</Typography>
       </Button>
-      {isLoading &&
-        <LinearProgress />
-      }
+      { isLoading && <LinearProgress /> }
       <Snackbar
         open={formError !== null}
         message={formError}
@@ -134,7 +132,8 @@ const RegistrationFormComponent: FC = () => {
         <Typography variant="body1" component='span'>Already have an account?</Typography>
       </Link>
     </form>
-  )
-}
+  );
+};
 
+/** Registration form. */
 export const RegistrationForm = memo(RegistrationFormComponent);

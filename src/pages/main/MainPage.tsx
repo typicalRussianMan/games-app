@@ -1,9 +1,8 @@
-import { FC, memo } from "react";
+import { FC, memo } from 'react';
 
-const MainPageComponent: FC = () => {
-  return (
-    <div>This page can see only authorized users</div>
-  );
-}
+const MainPageComponent: FC = () => (
+  <div>This page can see only authorized users</div>
+);
 
+/** Main page. */
 export const MainPage = memo(MainPageComponent);

@@ -1,4 +1,5 @@
-export interface RegistrationDto {
+/** Registration data DTO. */
+export type RegistrationDto = {
 
   /** First name. */
   readonly firstName: string;
@@ -11,4 +12,4 @@ export interface RegistrationDto {
 
   /** Password. */
   readonly password: string;
-}
+};

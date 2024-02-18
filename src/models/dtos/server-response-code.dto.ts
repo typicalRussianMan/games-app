@@ -1,4 +1,4 @@
-/** Statuses for server responses */
+/** Statuses for server responses. */
 export enum ServerResponseCodeDto {
 
   /** Positive response. */

@@ -1,3 +1,4 @@
+/** Registration. */
 export class Registration {
 
   /** First name. */

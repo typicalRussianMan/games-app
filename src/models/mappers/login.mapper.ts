@@ -1,6 +1,7 @@
-import { LoginDto } from "../dtos/login.dto";
-import { Login } from "../login";
-import { IMapperToDto } from "./mapper";
+import { LoginDto } from '../dtos/login.dto';
+import { Login } from '../login';
+
+import { IMapperToDto } from './mapper';
 
 /** Login mapper. */
 class LoginMapper implements IMapperToDto<LoginDto, Login> {
@@ -10,8 +11,9 @@ class LoginMapper implements IMapperToDto<LoginDto, Login> {
     return {
       email: data.email,
       password: data.password,
-    }
+    };
   }
 }
 
+/** Login mapper instance. */
 export const loginMapper = new LoginMapper();

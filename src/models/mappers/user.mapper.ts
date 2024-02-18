@@ -1,7 +1,9 @@
-import { UserDto } from "../dtos/user.dto";
-import { User } from "../user";
-import { IMapperFromDto } from "./mapper";
+import { UserDto } from '../dtos/user.dto';
+import { User } from '../user';
 
+import { IMapperFromDto } from './mapper';
+
+/** User mapper. */
 class UserMapper implements IMapperFromDto<UserDto, User> {
 
   /** @inheritdoc */
@@ -12,8 +14,9 @@ class UserMapper implements IMapperFromDto<UserDto, User> {
       id: data.id,
       lastName: data.lastName,
       nickName: data.nickName,
-    })
+    });
   }
 }
 
+/** User mapper instance. */
 export const userMapper = new UserMapper();
