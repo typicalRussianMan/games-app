@@ -1,16 +1,18 @@
 /** Mapper from DTO. */
-export type IMapperFromDto<TDto, TModel> = {
+export type IMapperFromDto<TDto, TModel, TName extends string = 'dto'> = {
 
   /** Maps data from dto to model. */
-  fromDto(data: TDto): TModel;
+  [K in `from${Capitalize<TName>}`]: (data: TDto) => TModel;
 };
 
 /** Mapper to DTO. */
-export type IMapperToDto<TDto, TModel> = {
+export type IMapperToDto<TDto, TModel, TName extends string = 'dto'> = {
 
   /** Maps data from dto to model. */
-  toDto(data: TModel): TDto;
+  [K in `to${Capitalize<TName>}`]: (data: TModel) => TDto;
 };
 
 /** Mapper. */
-export type IMapper<TDto, TModel> = IMapperFromDto<TDto, TModel> & IMapperToDto<TDto, TModel>;
+export type IMapper<TDto, TModel, TName extends string = 'dto'> =
+  IMapperFromDto<TDto, TModel, TName> &
+  IMapperToDto<TDto, TModel, TName>;

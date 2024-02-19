@@ -31,10 +31,6 @@ export class AuthApi {
       return tokenMapper.fromDto(token.data);
     } catch (err: unknown) {
       if (isAxiosError(err)) {
-        if (isValidationErrorDto(err.response?.data)) {
-          throw validationErrorMapper.fromDto(err.response.data);
-        }
-
         throw appErrorMapper.fromDto(err.response?.data);
       }
       throw err;
@@ -52,7 +48,7 @@ export class AuthApi {
     } catch (err: unknown) {
       if (isAxiosError(err)) {
         if (isValidationErrorDto(err.response?.data)) {
-          throw validationErrorMapper.fromDto(err.response.data);
+          throw validationErrorMapper.fromDto(err.response.data, registrationMapper);
         }
 
         throw appErrorMapper.fromDto(err.response?.data);

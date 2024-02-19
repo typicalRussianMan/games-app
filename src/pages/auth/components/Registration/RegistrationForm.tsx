@@ -23,9 +23,7 @@ const RegistrationFormComponent: FC = () => {
     setError,
     clearErrors,
     watch,
-  } = useForm<RegistrationFormData>({
-    resolver: yupResolver(registrationSchema),
-  });
+  } = useForm<RegistrationFormData>({ resolver: yupResolver(registrationSchema) });
   const formValues = watch();
 
   useEffect(() => {
@@ -58,6 +56,11 @@ const RegistrationFormComponent: FC = () => {
     } catch (err) {
       if (isValidationError<Registration>(err)) {
         for (const key in err.details) {
+          // eslint-disable-next-line max-depth
+          if (err.details[key as keyof Registration] === undefined) {
+            continue;
+          }
+
           setError(
             key as keyof Registration,
             { message: err.details[key as keyof Registration] },
@@ -128,9 +131,7 @@ const RegistrationFormComponent: FC = () => {
         autoHideDuration={5000}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
       />
-      <Link to="../login">
-        <Typography variant="body1" component='span'>Already have an account?</Typography>
-      </Link>
+      <Link to="../login"><Typography variant="body1" component='span'>Already have an account?</Typography></Link>
     </form>
   );
 };

@@ -5,8 +5,6 @@ import { Button, LinearProgress, Snackbar, TextField, Typography } from '@mui/ma
 import { yupResolver } from '@hookform/resolvers/yup';
 
 import { authApi } from '../../../../api';
-import { isValidationError } from '../../../../models/validation-error';
-import { Login } from '../../../../models/login';
 import { AppError } from '../../../../models/app-error';
 import { tokenService } from '../../../../services/token.service';
 import { useUser } from '../../../../hooks/useUser';
@@ -19,7 +17,6 @@ const LoginFormComponent: FC = () => {
     register,
     handleSubmit,
     formState: { errors },
-    setError,
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
   });
@@ -46,12 +43,7 @@ const LoginFormComponent: FC = () => {
 
       dispatch({ type: 'user', user });
     } catch (err) {
-      if (isValidationError<Login>(err)) {
-        setError('email', { message: err.details.email });
-        setError('password', { message: err.details.password });
-      } else {
-        setFormError((err as AppError).message);
-      }
+      setFormError((err as AppError).message);
     } finally {
       setIsLoading(false);
     }
