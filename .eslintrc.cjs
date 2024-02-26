@@ -16,6 +16,6 @@ module.exports = {
       { allowConstantExport: true },
     ],
     'linebreak-style': 'off',
-    'naming-convention': 'off'
+    '@typescript-eslint/naming-convention': 'off'
   },
 }

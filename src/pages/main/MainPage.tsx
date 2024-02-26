@@ -1,7 +1,13 @@
 import { FC, memo } from 'react';
+import { Outlet } from 'react-router-dom';
+
+import { Header } from './components/Header';
 
 const MainPageComponent: FC = () => (
-  <div>This page can see only authorized users</div>
+  <>
+    <Header />
+    <Outlet />
+  </>
 );
 
 /** Main page. */
