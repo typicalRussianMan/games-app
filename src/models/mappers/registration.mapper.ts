@@ -1,4 +1,3 @@
-import { OptionalFields } from '../../utils/types/optional-fields';
 import { RegistrationDto } from '../dtos/registration';
 import { Registration } from '../registration';
 
@@ -7,7 +6,7 @@ import { IMapperFromDto, IMapperToDto } from './mapper';
 /** Registration mapper. */
 class RegistrationMapper implements
 IMapperToDto<RegistrationDto, Registration>,
-IMapperFromDto<RegistrationDto, OptionalFields<Registration>, 'validationDto'> {
+IMapperFromDto<RegistrationDto, Partial<Registration>, 'validationDto'> {
 
   /** @inheritdoc */
   public toDto(data: Registration): RegistrationDto {
@@ -20,7 +19,7 @@ IMapperFromDto<RegistrationDto, OptionalFields<Registration>, 'validationDto'> {
   }
 
   /** @inheritdoc */
-  public fromValidationDto(data: OptionalFields<RegistrationDto>): OptionalFields<Registration> {
+  public fromValidationDto(data: Partial<RegistrationDto>): Partial<Registration> {
     return {
       email: data.email,
       firstName: data.firstName,
