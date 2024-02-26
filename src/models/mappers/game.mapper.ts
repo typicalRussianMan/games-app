@@ -4,6 +4,7 @@ import { Game } from '../game';
 import { companyLiteMapper } from './company-lite.mapper';
 import { gameCategoryMapper } from './game-category.mapper';
 import { IMapperFromDto } from './mapper';
+import { PagedListMapper } from './paged-list.mapper';
 
 /** Game mapper. */
 class GameMapper implements IMapperFromDto<GameDto, Game> {
@@ -22,3 +23,6 @@ class GameMapper implements IMapperFromDto<GameDto, Game> {
 
 /** Game mapper instance. */
 export const gameMapper = new GameMapper();
+
+/** Game paged list mapper. */
+export const gameListMapper = new PagedListMapper(gameMapper);

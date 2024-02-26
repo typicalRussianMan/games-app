@@ -4,7 +4,7 @@ import { PagedList } from '../paged-list';
 import { IMapperFromDto } from './mapper';
 
 /** Paged list mapper. */
-export class PagedListMapper<T, TDto> implements IMapperFromDto<PagedListDto<TDto>, PagedList<T>> {
+export class PagedListMapper<TDto, T> implements IMapperFromDto<PagedListDto<TDto>, PagedList<T>> {
 
   public constructor(
     private readonly mapper: IMapperFromDto<TDto, T>,
