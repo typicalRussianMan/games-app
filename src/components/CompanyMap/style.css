@@ -1,0 +1,23 @@
+.container {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  justify-content: center;
+}
+
+.map {
+  position: relative;
+  width: 80%;
+}
+
+.marker {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+  width: 20px;
+  height: 20px;
+  border: 2px solid #1e98ff;
+  background-color: #fff;
+  border-radius: 50%;
+}
