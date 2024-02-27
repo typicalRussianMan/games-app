@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: start;
   align-items: stretch;
+  gap: 5px;
   padding: 15px;
   background-color: #eee;
   border-radius: 10px;
@@ -14,4 +15,8 @@
 
 .card-image {
   max-width: 100%;
+}
+
+.card-button {
+  width: 100%;
 }

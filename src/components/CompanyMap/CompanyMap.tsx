@@ -20,7 +20,7 @@ const buildMapLink = ({ address: { lat, lng } }: CompanyLite): string =>
   '&poi%5Bpoint%5D=' + lng.toString() + '2%C' + lat.toString() +
   '&z=16';
 
-const CompanyMapComponent: FC<Props> = ({ company }) =>  (
+const CompanyMapComponent: FC<Props> = ({ company }) => (
   <div className='container'>
     <iframe
       src={buildMapLink(company)}

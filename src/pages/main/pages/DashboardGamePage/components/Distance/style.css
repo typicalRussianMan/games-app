@@ -1,0 +1,7 @@
+.distance {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  color: #333;
+  gap: 5px;
+}

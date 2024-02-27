@@ -4,26 +4,28 @@ import { CircularProgress } from '@mui/material';
 import { PagedList } from '../../../../models/paged-list';
 import { Game } from '../../../../models/game';
 import { gameApi } from '../../../../api';
+import { Point } from '../../../../utils/distance-between-points';
 
 import { GameCard } from './components/GameCard';
 import './style.css';
 
-type Coordinates = Pick<GeolocationCoordinates, 'latitude' | 'longitude'>;
-
-const DEFAULT_MAP_CENTER: Coordinates = {
-  latitude: 56.035665,
-  longitude: 92.875777,
+const DEFAULT_MAP_CENTER: Point = {
+  lat: 56.035665,
+  lng: 92.875777,
 };
 
 /** Dashboard game page. */
 export const DashboardGamePage: FC = () => {
   const [gameList, setGameList] = useState<PagedList<Game> | null>(null);
-  const [center, setCenter] = useState<Coordinates>(DEFAULT_MAP_CENTER);
+  const [center, setCenter] = useState<Point>(DEFAULT_MAP_CENTER);
 
   useEffect(() => {
     navigator.geolocation.getCurrentPosition(
       pos => {
-        setCenter(pos.coords);
+        setCenter({
+          lat: pos.coords.latitude,
+          lng: pos.coords.longitude,
+        });
       },
     );
   }, []);
@@ -31,10 +33,10 @@ export const DashboardGamePage: FC = () => {
   useEffect(() => {
     gameApi.getGames({
       bounds: {
-        bottom: center.latitude - 1,
-        left: center.longitude - 1,
-        right: center.longitude + 1,
-        top: center.latitude + 1,
+        bottom: center.lat - 0.1,
+        left: center.lng - 0.1,
+        right: center.lng + 0.1,
+        top: center.lng + 0.1,
       },
     }).then(games => {
       setGameList(games);
@@ -46,7 +48,7 @@ export const DashboardGamePage: FC = () => {
   }
 
   const cards = gameList.items.map(e => (
-    <GameCard game={e} key={e.id} />
+    <GameCard userLocation={center} game={e} key={e.id} />
   ));
 
   return (
