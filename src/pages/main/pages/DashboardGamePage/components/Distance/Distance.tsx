@@ -29,7 +29,6 @@ const DistanceComponent: FC<Props> = ({ from, to }) => (
     <Typography variant='subtitle1' component='span'>
       { formatDistance(calculateDistanceBetweenPoints(from, to)) }
     </Typography>
-
   </div>
 );
 

@@ -7,7 +7,7 @@ import { DashboardGamePage } from './pages/DashboardGamePage/DashboardGamePage';
 
 /** Main routes. */
 export const MAIN_ROUTES: RouteObject = {
-  // element: <AuthorizedGuard />,
+  element: <AuthorizedGuard />,
   children: [
     {
       path: '/',
