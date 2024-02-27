@@ -1,0 +1,17 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: stretch;
+  padding: 15px;
+  background-color: #eee;
+  border-radius: 10px;
+}
+
+.card-name {
+  flex-grow: 2;
+}
+
+.card-image {
+  max-width: 100%;
+}

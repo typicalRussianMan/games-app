@@ -4,7 +4,9 @@ import { CircularProgress } from '@mui/material';
 import { PagedList } from '../../../../models/paged-list';
 import { Game } from '../../../../models/game';
 import { gameApi } from '../../../../api';
-import { CompanyMap } from '../../../../components/CompanyMap';
+
+import { GameCard } from './components/GameCard';
+import './style.css';
 
 type Coordinates = Pick<GeolocationCoordinates, 'latitude' | 'longitude'>;
 
@@ -43,11 +45,13 @@ export const DashboardGamePage: FC = () => {
     return <CircularProgress />;
   }
 
-  const maps = gameList.items.map(e => (<CompanyMap company={e.company} />));
+  const cards = gameList.items.map(e => (
+    <GameCard game={e} key={e.id} />
+  ));
 
   return (
-    <div>
-      {...maps}
+    <div className='card-container'>
+      {...cards}
     </div>
   );
 };
