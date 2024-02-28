@@ -7,10 +7,15 @@
 
 .game-preview {
   height: 200px;
-  background-color: #cecece;
   display: flex;
   align-items: center;
   justify-content: center;
+  overflow: hidden;
+}
+
+.game-preview-img {
+  min-width: 100%;
+  min-height: 100%;
 }
 
 .inner-container {

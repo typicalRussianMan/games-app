@@ -50,7 +50,7 @@ export const GamePage: FC = () => {
   return (
     <div className="game-container">
       <div className="game-preview">
-        <Typography variant='h2' component='span'>Preview</Typography>
+        <img src={game.previewUrl} className="game-preview-img" />
       </div>
       <div className="inner-container">
         <Button variant='contained' className='play-button'>Play now!</Button>

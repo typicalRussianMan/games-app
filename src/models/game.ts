@@ -19,11 +19,19 @@ export class Game {
   /** Play count. */
   public readonly playCount: number;
 
+  /** Poster URL. */
+  public readonly posterUrl: string;
+
+  /** Preview URL. */
+  public readonly previewUrl: string;
+
   public constructor(data: Game) {
     this.category = data.category;
     this.company = data.company;
     this.id = data.id;
     this.name = data.name;
     this.playCount = data.playCount;
+    this.posterUrl = data.posterUrl;
+    this.previewUrl = data.previewUrl;
   }
 }

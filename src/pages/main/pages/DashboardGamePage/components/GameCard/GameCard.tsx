@@ -21,7 +21,9 @@ type Props = {
 
 const GameCardComponent: FC<Props> = ({ game, userLocation }) => (
   <div className='card'>
-    <img className='card-image' src="https://upload.wikimedia.org/wikipedia/commons/4/4a/100x100_logo.png" />
+    <div className="card-image-container">
+      <img className='card-image' src={game.posterUrl} />
+    </div>
     <Typography
       className='card-name'
       component='span'

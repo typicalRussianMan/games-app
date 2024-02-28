@@ -18,4 +18,10 @@ export type GameDto = {
 
   /** Play count. */
   readonly playCount: number;
+
+  /** Poster URL. */
+  readonly posterUrl: string;
+
+  /** Preview URL. */
+  readonly previewUrl: string;
 };

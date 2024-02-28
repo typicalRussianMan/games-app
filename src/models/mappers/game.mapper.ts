@@ -17,6 +17,8 @@ class GameMapper implements IMapperFromDto<GameDto, Game> {
       id: data.id,
       name: data.name,
       playCount: data.playCount,
+      posterUrl: data.posterUrl,
+      previewUrl: data.previewUrl,
     });
   }
 }
