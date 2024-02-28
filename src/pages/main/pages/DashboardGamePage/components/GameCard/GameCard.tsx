@@ -6,8 +6,8 @@ import { Game } from '../../../../../../models/game';
 import { Point } from '../../../../../../utils/distance-between-points';
 
 import './style.css';
-import { PlayCount } from '../PlayCount';
-import { Distance } from '../Distance';
+import { PlayCount } from '../../../../../../components/PlayCount';
+import { Distance } from '../../../../../../components/Distance';
 
 type Props = {
 

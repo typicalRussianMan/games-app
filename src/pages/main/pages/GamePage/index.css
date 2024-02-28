@@ -1,0 +1,30 @@
+.game-container {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: stretch;
+}
+
+.game-preview {
+  height: 200px;
+  background-color: #cecece;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.inner-container {
+  padding-inline: 10px;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  align-items: stretch;
+}
+
+.play-button {
+  width: 100%;
+}
+
+.address {
+  color: #333;
+}

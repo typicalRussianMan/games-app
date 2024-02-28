@@ -1,10 +1,10 @@
 import { FC, useEffect, useState } from 'react';
-import { CircularProgress } from '@mui/material';
 
 import { PagedList } from '../../../../models/paged-list';
 import { Game } from '../../../../models/game';
 import { gameApi } from '../../../../api';
 import { Point } from '../../../../utils/distance-between-points';
+import { PageLoading } from '../../../../components/PageLoading';
 
 import { GameCard } from './components/GameCard';
 import './style.css';
@@ -44,7 +44,7 @@ export const DashboardGamePage: FC = () => {
   }, [center]);
 
   if (gameList === null) {
-    return <CircularProgress />;
+    return <PageLoading />;
   }
 
   const cards = gameList.items.map(e => (

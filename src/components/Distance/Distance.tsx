@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import RoomIcon from '@mui/icons-material/Room';
 import { Typography } from '@mui/material';
 
-import { Point, calculateDistanceBetweenPoints } from '../../../../../../utils/distance-between-points';
+import { Point, calculateDistanceBetweenPoints } from '../../utils/distance-between-points';
 
 import './style.css';
 
