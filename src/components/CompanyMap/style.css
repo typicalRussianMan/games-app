@@ -3,11 +3,16 @@
   overflow: hidden;
   display: flex;
   justify-content: center;
+  height: 400px;
 }
 
 .map {
-  position: relative;
-  width: 80%;
+  position: absolute;
+  width: 120%;
+  left: 50%;
+  top: 50%;
+  transform: translateX(-50%) translateY(-50%);
+
 }
 
 .marker {
@@ -20,4 +25,9 @@
   border: 2px solid #1e98ff;
   background-color: #fff;
   border-radius: 50%;
+}
+
+.overall-plane {
+  position: absolute;
+  inset: 0;
 }

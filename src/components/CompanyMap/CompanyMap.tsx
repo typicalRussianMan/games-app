@@ -24,10 +24,11 @@ const CompanyMapComponent: FC<Props> = ({ company }) => (
   <div className='container'>
     <iframe
       src={buildMapLink(company)}
-      height="400"
+      height="500"
       className='map'
     ></iframe>
     <div className="marker"></div>
+    <div className="overall-plane"></div>
   </div>
 );
 

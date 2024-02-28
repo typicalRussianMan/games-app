@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import { Typography } from '@mui/material';
 import SportsEsportsIcon from '@mui/icons-material/SportsEsports';
 
-import { Game } from '../../../../../../models/game';
+import { Game } from '../../models/game';
 
 import './style.css';
 

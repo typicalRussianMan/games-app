@@ -8,7 +8,8 @@ import { PagedList } from '../models/paged-list';
 import { Game } from '../models/game';
 import { PagedListDto } from '../models/dtos/paged-list.dto';
 import { GameDto } from '../models/dtos/game.dto';
-import { gameListMapper } from '../models/mappers/game.mapper';
+import { gameListMapper, gameMapper } from '../models/mappers/game.mapper';
+import { Point } from '../utils/distance-between-points';
 
 type Bounds = {
 
@@ -83,6 +84,36 @@ export class GameApi {
       const result = await this.http.get<PagedListDto<GameDto>>(`/games?${searchParams.toString()}`);
 
       return gameListMapper.fromDto(result.data);
+    } catch (err) {
+      if (isAxiosError(err)) {
+        throw appErrorMapper.fromDto(err.response?.data);
+      }
+
+      throw err;
+    }
+  }
+
+  /**
+   * Gets game by ID.
+   * @param id ID.
+   * @param options Options.
+   */
+  public async getGame(id: number, options?: Point): Promise<Game> {
+    const searchParams = new URLSearchParams();
+
+    if (options !== undefined) {
+      searchParams.set('lat', options.lat.toString());
+      searchParams.set('lng', options.lng.toString());
+    }
+
+    const searchParamsString = options === undefined ?
+      '' :
+      `?${searchParams.toString()}`;
+
+    try {
+      const result = await this.http.get<GameDto>(`/games/${id}${searchParamsString}`);
+
+      return gameMapper.fromDto(result.data);
     } catch (err) {
       if (isAxiosError(err)) {
         throw appErrorMapper.fromDto(err.response?.data);
