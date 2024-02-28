@@ -17,7 +17,7 @@ type Props = {
 
 const formatDistance = (distance: number): string => {
   if (distance < 999) {
-    return `${distance} m.`;
+    return `${Math.floor(distance)} m.`;
   }
 
   return `${Math.floor(distance / 1000)} km.`;
