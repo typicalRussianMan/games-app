@@ -8,6 +8,7 @@ import { Point } from '../../../../../../utils/distance-between-points';
 import './style.css';
 import { PlayCount } from '../../../../../../components/PlayCount';
 import { Distance } from '../../../../../../components/Distance';
+import { CompanyInfo } from '../../../../../../components/CompanyInfo';
 
 type Props = {
 
@@ -30,6 +31,7 @@ const GameCardComponent: FC<Props> = ({ game, userLocation }) => (
     </Typography>
     <PlayCount game={game} />
     <Distance from={game.company.address} to={userLocation} />
+    <CompanyInfo company={game.company} />
     <Link to={`/${game.id}`}>
       <Button className='card-button' color='primary' variant='contained'>Play</Button>
     </Link>

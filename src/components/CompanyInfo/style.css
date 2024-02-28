@@ -1,0 +1,14 @@
+.company-info {
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  gap: 5px;
+}
+
+.company-logo {
+  border-radius: 50%;
+}
+
+.company-name {
+  color: #333;
+}

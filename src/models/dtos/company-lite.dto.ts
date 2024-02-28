@@ -9,6 +9,9 @@ export type CompanyLiteDto = {
   /** Name. */
   readonly name: string;
 
+  /** Logo URL. */
+  readonly logoUrl: string;
+
   /** Address. */
   readonly address: AddressDto;
 };

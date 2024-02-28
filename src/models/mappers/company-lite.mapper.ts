@@ -13,6 +13,7 @@ class CompanyLiteMapper implements IMapperFromDto<CompanyLiteDto, CompanyLite> {
       address: addressMapper.fromDto(data.address),
       id: data.id,
       name: data.name,
+      logoUrl: data.logoUrl,
     });
   }
 }

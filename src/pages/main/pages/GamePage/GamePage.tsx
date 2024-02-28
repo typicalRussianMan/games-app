@@ -11,6 +11,7 @@ import { Distance } from '../../../../components/Distance';
 import { PageLoading } from '../../../../components/PageLoading';
 
 import './index.css';
+import { CompanyInfo } from '../../../../components/CompanyInfo';
 
 /** Game page. */
 export const GamePage: FC = () => {
@@ -54,6 +55,7 @@ export const GamePage: FC = () => {
       <div className="inner-container">
         <Button variant='contained' className='play-button'>Play now!</Button>
         <Typography variant='h3' component='h2'>{game.name}</Typography>
+        <CompanyInfo company={game.company} />
         <PlayCount game={game} />
         <Distance from={game.company.address} to={location} />
         <div>
