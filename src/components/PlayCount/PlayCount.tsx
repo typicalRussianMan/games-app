@@ -12,17 +12,15 @@ type Props = {
   readonly game: Game;
 };
 
-const splitByThousands = (num: number): string => {
-  let res = '';
-  const str = num.toString();
-
-  // eslint-disable-next-line for-direction
-  for (let i = str.length - 1; i <= 0; i -= 3) {
-    res = `${str[i - 2]}${str[i - 1]}${str[i]} ${str}`;
-  }
-
-  return res;
-};
+const splitByThousands = (num: number): string => num
+  .toString()
+  .split('')
+  .reverse()
+  .reduce((ac, cur) => ac
+    .split(' ')
+    .join('').length % 3 === 0 ?
+    `${cur} ${ac}` :
+    `${cur}${ac}`, '');
 
 const formatPlayCount = (count: number): string => {
   if (count < 999) {
