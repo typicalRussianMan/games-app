@@ -1,15 +1,16 @@
 import { FC, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
-import { Button, CircularProgress, Typography } from '@mui/material';
+import { Button, Typography } from '@mui/material';
 
 import { Game } from '../../../../models/game';
 import { Point } from '../../../../utils/distance-between-points';
 import { gameApi } from '../../../../api';
 import { CompanyMap } from '../../../../components/CompanyMap';
-
-import './index.css';
 import { PlayCount } from '../../../../components/PlayCount';
 import { Distance } from '../../../../components/Distance';
+import { PageLoading } from '../../../../components/PageLoading';
+
+import './index.css';
 
 /** Game page. */
 export const GamePage: FC = () => {
@@ -42,7 +43,7 @@ export const GamePage: FC = () => {
   }, [location, gameId]);
 
   if (isLoading || game === null || location === null) {
-    return <CircularProgress />;
+    return <PageLoading />;
   }
 
   return (
