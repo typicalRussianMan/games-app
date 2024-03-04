@@ -13,6 +13,9 @@ import { registrationMapper } from '../models/mappers/registration.mapper';
 import { User } from '../models/user';
 import { UserDto } from '../models/dtos/user.dto';
 import { userMapper } from '../models/mappers/user.mapper';
+import { Achievement } from '../models/achievement';
+import { AchievementDto } from '../models/dtos/achievement.dto';
+import { achievementMapper } from '../models/mappers/achievement.mapper';
 
 /** Auth API. */
 export class AuthApi {
@@ -62,6 +65,19 @@ export class AuthApi {
     try {
       const user = await this.http.get<UserDto>('/user');
       return userMapper.fromDto(user.data);
+    } catch (err) {
+      if (isAxiosError(err)) {
+        throw appErrorMapper.fromDto(err.response?.data);
+      }
+      throw err;
+    }
+  }
+
+  /** Checks achievement updates. */
+  public async checkAchievementUpdates(): Promise<Achievement[]> {
+    try {
+      const updates = await this.http.get<AchievementDto[]>('/user/check-achievements');
+      return updates.data.map(achievementMapper.fromDto);
     } catch (err) {
       if (isAxiosError(err)) {
         throw appErrorMapper.fromDto(err.response?.data);
