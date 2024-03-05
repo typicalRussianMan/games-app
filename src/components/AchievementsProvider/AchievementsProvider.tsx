@@ -40,14 +40,10 @@ const AchievementProviderComponent: FC = () => {
       <Outlet />
       <Snackbar
         open={open}
-        autoHideDuration={5000}
+        autoHideDuration={3000}
         onClose={handleClose}
-      >
-        <div className='snackbar'>
-          
-          {message}
-        </div>
-      </Snackbar>
+        message={message}
+      />
     </>
   );
 };
