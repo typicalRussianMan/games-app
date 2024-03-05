@@ -1,5 +1,5 @@
 import { FC, MouseEvent, memo, useEffect, useState } from 'react';
-import { Outlet } from 'react-router-dom';
+import { Navigate, Outlet } from 'react-router-dom';
 import { IconButton, Snackbar, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { InternalAxiosRequestConfig } from 'axios';
@@ -21,8 +21,7 @@ const sendAchievementRequestAfterRequest = (onSend: VFn): Interceptor => (conf: 
 };
 
 const AchievementProviderComponent: FC = () => {
-
-  const [updates, setUpdates] = useState<Achievement[]>([{ description: 'Play 1 game', title: 'Player I', id: 0 }]);
+  const [updates, setUpdates] = useState<Achievement[]>([]);
   const [open, setOpen] = useState(false);
 
   const onRequest = (): void => {
@@ -52,7 +51,7 @@ const AchievementProviderComponent: FC = () => {
   };
 
   const handleAchievementClick = (_e: MouseEvent): void => {
-    return void 0;
+    window.location.href = '/profile';
   };
 
   const handleAchievementClose = (e: MouseEvent): void => {

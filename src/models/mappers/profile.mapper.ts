@@ -17,6 +17,7 @@ class ProfileMapper implements IMapperFromDto<ProfileDto, Profile> {
       lastName: data.lastName,
       nickName: data.nickName,
       achievements: data.achievements.map(achievementFullMapper.fromDto),
+      avatar: data.avatar,
     });
   }
 }

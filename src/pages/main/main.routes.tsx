@@ -6,6 +6,7 @@ import { AchievementProvider } from '../../components/AchievementsProvider/Achie
 import { MainPage } from './MainPage';
 import { DashboardGamePage } from './pages/DashboardGamePage/DashboardGamePage';
 import { GamePage } from './pages/GamePage/GamePage';
+import { ProfilePage } from './pages/ProfilePage';
 
 /** Main routes. */
 export const MAIN_ROUTES: RouteObject = {
@@ -21,6 +22,10 @@ export const MAIN_ROUTES: RouteObject = {
             {
               path: '/',
               element: <DashboardGamePage />,
+            },
+            {
+              path: '/profile',
+              element: <ProfilePage />,
             },
             {
               path: '/:gameId',

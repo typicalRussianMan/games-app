@@ -15,4 +15,7 @@ export type UserDto = {
 
   /** Email. */
   readonly email: string;
+
+  /** Avatar. */
+  readonly avatar: string;
 };
