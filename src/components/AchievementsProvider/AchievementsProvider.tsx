@@ -1,25 +1,40 @@
 import { FC, memo, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import { Snackbar } from '@mui/material';
+import { InternalAxiosRequestConfig } from 'axios';
 
-import { authApi } from '../../api';
+import { authApi, http } from '../../api';
 import { Achievement } from '../../models/achievement';
+
+type Interceptor = (conf: InternalAxiosRequestConfig) => InternalAxiosRequestConfig;
+type VFn = () => void;
+type Conf = InternalAxiosRequestConfig;
+
+const sendAchievementRequestAfterRequest = (onSend: VFn): Interceptor => (conf: Conf): Conf => {
+  if (conf.url && !conf.url.includes('check-achievements')) {
+    onSend();
+  }
+  return conf;
+};
 
 const AchievementProviderComponent: FC = () => {
 
   const [updates, setUpdates] = useState<Achievement[]>([]);
   const [open, setOpen] = useState(false);
 
-  useEffect(() => {
-
-    const iId = setInterval(async() => {
-      const newUpdates = await authApi.checkAchievementUpdates();
-      const total = [...updates, ...newUpdates];
+  const onRequest = (): void => {
+    setTimeout(async() => {
+      const achievements = await authApi.checkAchievementUpdates();
+      const total = [...updates, ...achievements];
       setUpdates(total);
       setOpen(total.length > 0);
-    }, 5000);
+    }, 1000);
+  };
 
-    return () => clearInterval(iId);
+  useEffect(() => {
+    const id = http.interceptors.request.use(sendAchievementRequestAfterRequest(onRequest));
+
+    return () => http.interceptors.request.eject(id);
   }, []);
 
   useEffect(() => {
