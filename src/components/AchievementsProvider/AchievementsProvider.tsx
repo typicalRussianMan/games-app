@@ -1,10 +1,13 @@
-import { FC, memo, useEffect, useState } from 'react';
+import { FC, MouseEvent, memo, useEffect, useState } from 'react';
 import { Outlet } from 'react-router-dom';
-import { Snackbar } from '@mui/material';
+import { IconButton, Snackbar, Typography } from '@mui/material';
+import CloseIcon from '@mui/icons-material/Close';
 import { InternalAxiosRequestConfig } from 'axios';
 
 import { authApi, http } from '../../api';
 import { Achievement } from '../../models/achievement';
+
+import './style.css';
 
 type Interceptor = (conf: InternalAxiosRequestConfig) => InternalAxiosRequestConfig;
 type VFn = () => void;
@@ -19,7 +22,7 @@ const sendAchievementRequestAfterRequest = (onSend: VFn): Interceptor => (conf: 
 
 const AchievementProviderComponent: FC = () => {
 
-  const [updates, setUpdates] = useState<Achievement[]>([]);
+  const [updates, setUpdates] = useState<Achievement[]>([{ description: 'Play 1 game', title: 'Player I', id: 0 }]);
   const [open, setOpen] = useState(false);
 
   const onRequest = (): void => {
@@ -48,7 +51,14 @@ const AchievementProviderComponent: FC = () => {
     setUpdates(updates.slice(1));
   };
 
-  const message = updates[0] ? `${updates[0].title}: ${updates[0].description}` : '';
+  const handleAchievementClick = (_e: MouseEvent): void => {
+    return void 0;
+  };
+
+  const handleAchievementClose = (e: MouseEvent): void => {
+    e.stopPropagation();
+    handleClose();
+  };
 
   return (
     <>
@@ -57,8 +67,23 @@ const AchievementProviderComponent: FC = () => {
         open={open}
         autoHideDuration={3000}
         onClose={handleClose}
-        message={message}
-      />
+      >
+        <div className='snackbar' tabIndex={1} onClick={handleAchievementClick}>
+          <div className="image-block">
+            <img
+              width={75}
+              src="https://static.vecteezy.com/system/resources/previews/011/665/596/non_2x/3d-trophy-cup-icon-isolated-in-white-background-3d-rendering-png.png"
+            />
+          </div>
+          <div className="achievement-info">
+            <Typography variant='h5' component='div'>{updates[0]?.title}</Typography>
+            <Typography variant='body1' component='div'>{updates[0]?.description}</Typography>
+          </div>
+          <IconButton onClick={handleAchievementClose} color='primary' aria-label='close popup'>
+            <CloseIcon />
+          </IconButton>
+        </div>
+      </Snackbar>
     </>
   );
 };
