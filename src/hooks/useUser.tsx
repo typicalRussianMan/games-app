@@ -1,6 +1,7 @@
 import { FC, PropsWithChildren, createContext, memo, useContext, useReducer } from 'react';
 
 import { User } from '../models/user';
+import { tokenService } from '../services/token.service';
 
 type UserState = {
 
@@ -18,6 +19,12 @@ type UserActionLoading = {
 
   /** Action type. */
   readonly type: 'loading';
+};
+
+type UserActionLogout = {
+
+  /** Action type. */
+  readonly type: 'logout';
 };
 
 type UserActionUser = {
@@ -38,7 +45,7 @@ type UserActionError = {
   readonly error: string;
 };
 
-type UserAction = UserActionError | UserActionLoading | UserActionUser;
+type UserAction = UserActionError | UserActionLoading | UserActionUser | UserActionLogout;
 
 type UserContext = {
 
@@ -71,6 +78,9 @@ const userReducer = (_state: UserState, action: UserAction): UserState => {
       return { error: null, isLoading: true, user: null };
     case 'user':
       return { error: null, isLoading: false, user: action.user };
+    case 'logout':
+      tokenService.deleteToken();
+      return { error: null, isLoading: false, user: null };
     default:
       throw new Error(`Unknown action type: ${type}`);
   }

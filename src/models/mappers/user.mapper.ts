@@ -14,6 +14,7 @@ class UserMapper implements IMapperFromDto<UserDto, User> {
       id: data.id,
       lastName: data.lastName,
       nickName: data.nickName,
+      avatar: data.avatar,
     });
   }
 }
