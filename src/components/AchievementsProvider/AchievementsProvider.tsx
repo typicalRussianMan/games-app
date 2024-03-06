@@ -1,5 +1,5 @@
 import { FC, MouseEvent, memo, useEffect, useState } from 'react';
-import { Navigate, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { IconButton, Snackbar, Typography } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import { InternalAxiosRequestConfig } from 'axios';
@@ -50,7 +50,7 @@ const AchievementProviderComponent: FC = () => {
     setUpdates(updates.slice(1));
   };
 
-  const handleAchievementClick = (_e: MouseEvent): void => {
+  const handleAchievementClick = (): void => {
     window.location.href = '/profile';
   };
 
