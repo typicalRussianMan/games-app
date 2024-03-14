@@ -1,0 +1,20 @@
+{
+  "name": "RadBonus",
+  "short_name": "RadBonus",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#fff",
+  "description": "RadBonus app: play games and get bonuses",
+  "icons": [
+    {
+      "src": "/logo_no_text.svg",
+      "sizes": "95x93",
+      "type": "image/svg"
+    },
+    {
+      "src": "/logo144.png",
+      "sizes": "144x144",
+      "type": "image/png"
+    }
+  ]
+}
