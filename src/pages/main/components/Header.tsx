@@ -17,8 +17,9 @@ const HeaderComponent: FC = () => (
           textAlign='center'
           component='h1'
           variant='h5'
-          sx={{ flexGrow: 1 }}>
-          Games App
+          sx={{ flexGrow: 1 }}
+          fontFamily='Righteous'>
+          RadBonus
         </Typography>
       </Link>
       <MenuIcon />
